@@ -1,14 +1,12 @@
-# Koristi JDK 17 kao baznu sliku
-FROM eclipse-temurin:17-jdk
-
-# Postavi radni direktorij
+# 1. Build stage
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Kopiraj jar datoteku iz target foldera
-COPY target/Wineries-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose porta koji koristi Spring Boot
+# 2. Runtime stage
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY --from=build /app/target/Wineries-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 4040
-
-# Komanda za pokretanje aplikacije
 ENTRYPOINT ["java", "-jar", "app.jar"]
