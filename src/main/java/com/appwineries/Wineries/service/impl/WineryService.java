@@ -161,7 +161,7 @@ public class WineryService implements InterfaceWineryService {
 
     @Override
     @Transactional
-    public Response updateWinery(Long wineryId, AllWineriesDTO wineryDTO) {
+    public Response updateWinery(Long wineryId, AllWineriesDTO wineryDTO, List<String> wines) {
         Response response = new Response();
         try{
             Winery winery = wineryRepository.findById(wineryId).orElseThrow(()-> new OurException("Winery not found"));
@@ -173,6 +173,18 @@ public class WineryService implements InterfaceWineryService {
             winery.setLatitude(wineryDTO.getLatitude());
             winery.setLongitude(wineryDTO.getLongitude());
             winery.setExtras(wineryDTO.getExtras());
+
+
+
+            wineryWineRepository.deleteByWineryId(wineryId);
+            List<WineryWine> wineryWines = new ArrayList<>();
+            for (String wine : wines) {
+                WineryWine wineryWine = new WineryWine();
+                wineryWine.setWineName(wine);
+                wineryWine.setWinery(winery); // Postavi vezu s vinarijom
+                wineryWines.add(wineryWine);
+            }
+            winery.setWines(wineryWines);
             wineryRepository.save(winery);
 
             response.setStatusCode(200);

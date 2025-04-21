@@ -3,6 +3,7 @@ package com.appwineries.Wineries.controller;
 import com.appwineries.Wineries.dto.AllWineriesDTO;
 import com.appwineries.Wineries.dto.Response;
 import com.appwineries.Wineries.dto.ScheduleDTO;
+import com.appwineries.Wineries.dto.UpdateWineryDTO;
 import com.appwineries.Wineries.service.interfac.InterfaceWineryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -105,8 +106,14 @@ public class WineryController {
     }
 
     @PutMapping("/update-winery/{wineryId}")
-    public ResponseEntity<Response> updateWinery(@PathVariable Long wineryId, @RequestBody AllWineriesDTO wineryDTO) {
-        Response response = interfaceWineryService.updateWinery(wineryId, wineryDTO);
+    public ResponseEntity<Response> updateWinery(@PathVariable Long wineryId, @RequestBody UpdateWineryDTO updateWineryDTO) {
+        AllWineriesDTO wineryDTO = updateWineryDTO.getWinery();
+        String winesString = updateWineryDTO.getWines();
+
+        List<String> wines = winesString != null ? Arrays.asList(winesString.split(",")) : new ArrayList<>();
+        System.out.println("wines u listi su: " + wines);
+
+        Response response = interfaceWineryService.updateWinery(wineryId, wineryDTO, wines);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 

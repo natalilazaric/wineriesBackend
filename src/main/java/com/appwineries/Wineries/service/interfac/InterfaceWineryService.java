@@ -21,7 +21,7 @@ public interface InterfaceWineryService {
 
     Response deleteWinery(Long wineryId);
 
-    Response updateWinery(Long wineryId, AllWineriesDTO wineryDTO);
+    Response updateWinery(Long wineryId, AllWineriesDTO wineryDTO, List<String> wines);
 
     Response getWineryById(Long wineryId);
 
