@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface InterfaceWineryService {
 
-    Response addNewWinery(Long userId, MultipartFile photo, String name, String location, double latitude, double longitude, BigDecimal price, boolean food, String description, List<String> wines, Map<String, String> extras);
+    Response addNewWinery(Long userId, MultipartFile photo, String name, String location, double latitude, double longitude, BigDecimal price, boolean food, String description, List<String> wines, Map<String, String> extras, Map<String, String> offers);
 
     Response getWinesByWineryId(Long wineryId);
 

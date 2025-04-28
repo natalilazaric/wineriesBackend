@@ -26,6 +26,7 @@ public class WineryDTO {
     private String photo;
     private String description;
     private Map<String, String> extras;
+    private Map<String, String> offers;
 
     public Long getId() {
         return id;
@@ -116,6 +117,14 @@ public class WineryDTO {
         this.extras = extras;
     }
 
+    public Map<String, String> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(Map<String, String> offers) {
+        this.offers = offers;
+    }
+
     @Override
     public String toString() {
         return "WineryDTO{" +
@@ -130,6 +139,7 @@ public class WineryDTO {
                 ", photo='" + photo + '\'' +
                 ", description='" + description + '\'' +
                 ", extras=" + extras +
+                ", offers=" + offers +
                 '}';
     }
 }

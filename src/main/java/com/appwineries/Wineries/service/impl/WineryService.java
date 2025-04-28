@@ -51,8 +51,18 @@ public class WineryService implements InterfaceWineryService {
         }
         return extrasMap;
     }
+
+    private Map<String, String> convertOffers(List<Object[]> rawOffers) {
+        Map<String, String> offersMap = new HashMap<>();
+        for (Object[] row : rawOffers) {
+            String key = (String) row[0];
+            String value = (String) row[1];
+            offersMap.put(key, value);
+        }
+        return offersMap;
+    }
     @Override
-    public Response addNewWinery(Long userId, MultipartFile photo, String name, String location, double latitude, double longitude, BigDecimal price, boolean food, String description, List<String> wines, Map<String, String> extras) {
+    public Response addNewWinery(Long userId, MultipartFile photo, String name, String location, double latitude, double longitude, BigDecimal price, boolean food, String description, List<String> wines, Map<String, String> extras, Map<String, String> offers) {
         Response response = new Response();
         try{
             User owner = userRepository.findById(userId).orElseThrow(()-> new OurException("User not found"));
@@ -81,6 +91,7 @@ public class WineryService implements InterfaceWineryService {
             winery.setWines(wineryWines);
             winery.setPrice(price);
             winery.setExtras(extras);
+            winery.setOffers(offers);
 
             Winery savedWinery = wineryRepository.save(winery);
             WineryDTO wineryDTO = Utils.mapWineryEntityToWineryDTO(savedWinery);
@@ -126,8 +137,11 @@ public class WineryService implements InterfaceWineryService {
                 List<Object[]> rawExtras = wineryRepository.findExtrasRawByWineryId(wineryDTO.getId());
                 Map<String, String> extras = convertExtras(rawExtras);
                 wineryDTO.setExtras(extras);
-            }
+                List<Object[]> rawOffers = wineryRepository.findOffersRawByWineryId(wineryDTO.getId());
+                Map<String, String> offers = convertOffers(rawOffers);
+                wineryDTO.setOffers(offers);
 
+            }
 
             response.setStatusCode(200);
             response.setMessage("Successful");
@@ -173,6 +187,7 @@ public class WineryService implements InterfaceWineryService {
             winery.setLatitude(wineryDTO.getLatitude());
             winery.setLongitude(wineryDTO.getLongitude());
             winery.setExtras(wineryDTO.getExtras());
+            winery.setOffers(wineryDTO.getOffers());
 
 
 
@@ -208,6 +223,10 @@ public class WineryService implements InterfaceWineryService {
             List<Object[]> rawExtras = wineryRepository.findExtrasRawByWineryId(wineryId);
             Map<String, String> extras = convertExtras(rawExtras);
             wineryDTO.setExtras(extras);
+
+            List<Object[]> rawOffers = wineryRepository.findOffersRawByWineryId(wineryId);
+            Map<String, String> offers = convertOffers(rawOffers);
+            wineryDTO.setOffers(offers);
 
             response.setStatusCode(200);
             response.setMessage("Successful");

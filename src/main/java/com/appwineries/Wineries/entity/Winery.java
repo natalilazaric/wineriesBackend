@@ -48,6 +48,12 @@ public class Winery {
     @Column(name = "value")
     private Map<String, String> extras = new HashMap<>();
 
+    @ElementCollection
+    @CollectionTable(name = "winery_offers", joinColumns = @JoinColumn(name = "winery_id"))
+    @MapKeyColumn(name = "title")
+    @Column(name = "value")
+    private Map<String, String> offers = new HashMap<>();
+
     @Override
     public String toString() {
         return "Winery{" +
@@ -65,6 +71,7 @@ public class Winery {
                 ", wines=" + wines +
                 ", scheduleSlots=" + scheduleSlots +
                 ", extras=" + extras +
+                ", offers=" + offers +
                 '}';
     }
 
@@ -133,7 +140,7 @@ public class Winery {
         this.description = description;
     }
 
-        public void setReservations(List<Reservation> reservations) {
+    public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
     }
 
@@ -179,5 +186,13 @@ public class Winery {
 
     public void setExtras(Map<String, String> extras) {
         this.extras = extras;
+    }
+
+    public Map<String, String> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(Map<String, String> offers) {
+        this.offers = offers;
     }
 }

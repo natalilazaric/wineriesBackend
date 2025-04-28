@@ -64,6 +64,7 @@ public class Utils {
         wineryDTO.setPhoto(winery.getPhoto());
         wineryDTO.setDescription(winery.getDescription());
         wineryDTO.setExtras(winery.getExtras());
+        wineryDTO.setOffers(winery.getOffers());
 
         if(winery.getOwner() != null){
             wineryDTO.setOwner(Utils.mapUserEntityToUserDTO(winery.getOwner()));
@@ -124,6 +125,7 @@ public class Utils {
             wineryDTO.setPhoto(reservation.getWinery().getPhoto());
             wineryDTO.setDescription(reservation.getWinery().getDescription());
             wineryDTO.setExtras(reservation.getWinery().getExtras());
+            wineryDTO.setOffers(reservation.getWinery().getOffers());
             reservationDTO.setWinery(wineryDTO);
         }
 

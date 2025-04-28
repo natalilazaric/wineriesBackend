@@ -17,6 +17,8 @@ public class AllWineriesDTO {
 
     private Map<String, String> extras;
 
+    private Map<String, String> offers;
+
     public AllWineriesDTO(Long id, String name, String location, double latitude, double longitude, BigDecimal price, Boolean food, String description, String photo) {
         this.id = id;
         this.name = name;
@@ -109,6 +111,14 @@ public class AllWineriesDTO {
         this.extras = extras;
     }
 
+    public Map<String, String> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(Map<String, String> offers) {
+        this.offers = offers;
+    }
+
     @Override
     public String toString() {
         return "AllWineriesDTO{" +
@@ -122,6 +132,7 @@ public class AllWineriesDTO {
                 ", photo='" + photo + '\'' +
                 ", description='" + description + '\'' +
                 ", extras=" + extras +
+                ", offers=" + offers +
                 '}';
     }
 }

@@ -31,4 +31,7 @@ public interface WineryRepository extends JpaRepository<Winery, Long> {
 
     @Query(value = "SELECT title, value FROM winery_extras WHERE winery_id = :wineryId", nativeQuery = true)
     List<Object[]> findExtrasRawByWineryId(@Param("wineryId") Long wineryId);
+
+    @Query(value = "SELECT title, value FROM winery_offers WHERE winery_id = :wineryId", nativeQuery = true)
+    List<Object[]> findOffersRawByWineryId(@Param("wineryId") Long wineryId);
 }

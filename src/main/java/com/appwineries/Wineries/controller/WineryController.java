@@ -34,7 +34,8 @@ public class WineryController {
             @RequestParam(value="food", required = false)boolean food,
             @RequestParam(value="description", required = false)String description,
             @RequestParam(name = "wines", required = false) String winesString,
-            @RequestParam(name = "extras", required = false) String extrasJson
+            @RequestParam(name = "extras", required = false) String extrasJson,
+            @RequestParam(name = "offers", required = false) String offersJson
             ){
 
 
@@ -51,8 +52,22 @@ public class WineryController {
                 return ResponseEntity.status(400).body(error);
             }
         }
+        Map<String, String> offers = new HashMap<>();
+        if (offersJson != null && !offersJson.isEmpty()) {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                offers = objectMapper.readValue(offersJson, Map.class);
+            } catch (Exception e) {
+                Response error = new Response();
+                error.setStatusCode(400);
+                error.setMessage("Neispravan format dodatnih informacija (extras). Očekivan JSON objekt.");
+                return ResponseEntity.status(400).body(error);
+            }
+        }
+        System.out.println("OFFERS JSON: " + offersJson);
+        System.out.println("OFFERS : " + offers);
 
-        Response response = interfaceWineryService.addNewWinery(userId,photo, name, location, latitude, longitude, price, food, description, wines, extras);
+        Response response = interfaceWineryService.addNewWinery(userId,photo, name, location, latitude, longitude, price, food, description, wines, extras, offers);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
