@@ -182,7 +182,7 @@ public class ReservationService implements InterfaceReservationService {
                                 "\nLokacija: " + reservation.getWinery().getLocation() +
                                 "\nDatum rezervacije: " + reservation.getDate() +
                                 "\nTermin: " + reservation.getStartTime() + " - " + reservation.getEndTime() +
-                                "\nOffer: " + reservation.getOffer() +
+                                "\nOdabrana ponuda: " + reservation.getOffer() +
                                 "\nBroj gostiju: " + reservation.getNumberOfGuests() +
                                 "\nUkupna cijena: " + reservation.getTotalPrice()
                 );
