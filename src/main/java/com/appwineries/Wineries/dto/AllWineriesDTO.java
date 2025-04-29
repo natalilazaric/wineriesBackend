@@ -10,7 +10,6 @@ public class AllWineriesDTO {
     private String location;
     private double latitude;
     private double longitude;
-    private BigDecimal price;
     private boolean food;
     private String photo;
     private String description;
@@ -19,13 +18,12 @@ public class AllWineriesDTO {
 
     private Map<String, String> offers;
 
-    public AllWineriesDTO(Long id, String name, String location, double latitude, double longitude, BigDecimal price, Boolean food, String description, String photo) {
+    public AllWineriesDTO(Long id, String name, String location, double latitude, double longitude, Boolean food, String description, String photo) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.price = price;  // Za slučaj null vrijednosti
         this.food = food != null ? food : false;
         this.photo = photo;
         this.description = description;
@@ -55,13 +53,6 @@ public class AllWineriesDTO {
         this.location = location;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 
     public boolean isFood() {
         return food;
@@ -127,7 +118,6 @@ public class AllWineriesDTO {
                 ", location='" + location + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
-                ", price=" + price +
                 ", food=" + food +
                 ", photo='" + photo + '\'' +
                 ", description='" + description + '\'' +

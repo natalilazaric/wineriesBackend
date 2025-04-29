@@ -30,7 +30,6 @@ public class WineryController {
             @RequestParam(value="location", required = false)String location,
             @RequestParam(value="latitude", required = false)double latitude,
             @RequestParam(value="longitude", required = false)double longitude,
-            @RequestParam(value="price", required = false)BigDecimal price,
             @RequestParam(value="food", required = false)boolean food,
             @RequestParam(value="description", required = false)String description,
             @RequestParam(name = "wines", required = false) String winesString,
@@ -67,7 +66,7 @@ public class WineryController {
         System.out.println("OFFERS JSON: " + offersJson);
         System.out.println("OFFERS : " + offers);
 
-        Response response = interfaceWineryService.addNewWinery(userId,photo, name, location, latitude, longitude, price, food, description, wines, extras, offers);
+        Response response = interfaceWineryService.addNewWinery(userId,photo, name, location, latitude, longitude, food, description, wines, extras, offers);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 

@@ -19,7 +19,6 @@ public class Winery {
     private String location;
     private double latitude;
     private double longitude;
-    private BigDecimal price;
     private Boolean food;
 
     @OneToOne
@@ -62,7 +61,6 @@ public class Winery {
                 ", location='" + location + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
-                ", price=" + price +
                 ", food=" + food +
                 ", owner=" + owner +
                 ", description='" + description + '\'' +
@@ -87,9 +85,6 @@ public class Winery {
         return location;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
 
     public Boolean getFood() {
         return food;
@@ -124,9 +119,6 @@ public class Winery {
         this.location = location;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 
     public void setFood(Boolean food) {
         this.food = food;

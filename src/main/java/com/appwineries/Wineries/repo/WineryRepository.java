@@ -19,10 +19,10 @@ public interface WineryRepository extends JpaRepository<Winery, Long> {
     @Query("SELECT w FROM Winery w ORDER BY w.id DESC")
     List<Winery> getAllWineries();
 
-    @Query("SELECT new com.appwineries.Wineries.dto.AllWineriesDTO(w.id, w.name, w.location, w.latitude, w.longitude, w.price, w.food, w.description, w.photo) FROM Winery w ORDER BY w.id DESC")
+    @Query("SELECT new com.appwineries.Wineries.dto.AllWineriesDTO(w.id, w.name, w.location, w.latitude, w.longitude, w.food, w.description, w.photo) FROM Winery w ORDER BY w.id DESC")
     List<AllWineriesDTO> findAllWineries();
 
-    @Query("SELECT new com.appwineries.Wineries.dto.AllWineriesDTO(w.id, w.name, w.location, w.latitude, w.longitude, w.price, w.food, w.description, w.photo) FROM Winery w WHERE w.id = :wineryId")
+    @Query("SELECT new com.appwineries.Wineries.dto.AllWineriesDTO(w.id, w.name, w.location, w.latitude, w.longitude, w.food, w.description, w.photo) FROM Winery w WHERE w.id = :wineryId")
     AllWineriesDTO findWineryById(@Param("wineryId") Long wineryId);
 
     Winery findByOwnerId(Long ownerId);

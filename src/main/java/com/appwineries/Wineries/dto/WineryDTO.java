@@ -20,7 +20,6 @@ public class WineryDTO {
     private String location;
     private double latitude;
     private double longitude;
-    private BigDecimal price;
     private boolean food;
     private UserDTO owner;
     private String photo;
@@ -50,14 +49,6 @@ public class WineryDTO {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public boolean isFood() {
@@ -133,7 +124,6 @@ public class WineryDTO {
                 ", location='" + location + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
-                ", price=" + price +
                 ", food=" + food +
                 ", owner=" + owner +
                 ", photo='" + photo + '\'' +

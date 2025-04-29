@@ -1,5 +1,6 @@
 package com.appwineries.Wineries.service.impl;
 
+import com.appwineries.Wineries.dto.AllWineriesDTO;
 import com.appwineries.Wineries.dto.ReservationDTO;
 import com.appwineries.Wineries.dto.Response;
 import com.appwineries.Wineries.dto.WineryDTO;
@@ -19,7 +20,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -36,27 +39,37 @@ public class ReservationService implements InterfaceReservationService {
     @Autowired
     private EmailService emailService;
 
+    private Map<String, String> convertOffers(List<Object[]> rawOffers) {
+        Map<String, String> offersMap = new HashMap<>();
+        for (Object[] row : rawOffers) {
+            String key = (String) row[0];
+            String value = (String) row[1];
+            offersMap.put(key, value);
+        }
+        return offersMap;
+    }
     @Override
     public Response saveReservation(Long wineryId, Long userId, Reservation reservationRequest) {
         Response response = new Response();
         try{
-            System.out.println("Primljeni podaci:");
-            System.out.println("Winery ID: " + wineryId);
-            System.out.println("User ID: " + userId);
-            System.out.println("Datum rezervacije: " + reservationRequest.getDate());
-            System.out.println("Broj gostiju: " + reservationRequest.getNumberOfGuests());
-            System.out.println("Day: " + reservationRequest.getDayOfWeek());
-            System.out.println("StartTime: " + reservationRequest.getStartTime());
-            System.out.println("Endtime: " + reservationRequest.getEndTime());
 
+            List<Object[]> rawOffers = wineryRepository.findOffersRawByWineryId(wineryId);
+            Map<String, String> offers = convertOffers(rawOffers);
 
             Winery winery = wineryRepository.findById(wineryId).orElseThrow(()-> new OurException("Winery not found"));
             User user = userRepository.findById(userId).orElseThrow(()-> new OurException("User not found"));
 
+            String offerDescription = reservationRequest.getOffer();
+            String priceString = offers.get(offerDescription);
+            if (priceString == null) {
+                throw new OurException("Offer not found: " + offerDescription);
+            }
 
-            BigDecimal price = winery.getPrice().multiply(BigDecimal.valueOf(reservationRequest.getNumberOfGuests()));
+            // Parsiranje cijene i izračun totalne cijene
+            BigDecimal pricePerGuest = new BigDecimal(priceString);
+            BigDecimal totalPrice = pricePerGuest.multiply(BigDecimal.valueOf(reservationRequest.getNumberOfGuests()));
 
-            reservationRequest.setTotalPrice(price);
+            reservationRequest.setTotalPrice(totalPrice);
             reservationRequest.setWinery(winery);
             reservationRequest.setUser(user);
             reservationRepository.save(reservationRequest);
@@ -73,10 +86,6 @@ public class ReservationService implements InterfaceReservationService {
         return response;
     }
 
-    private boolean wineryAvailable(String date, List<Reservation> existingReservations) {
-        //moram vidjet kako cu to spremat mozda nece ni trebat
-        return true;
-    }
 
     @Override
     public Response findReservationById(Long reservationId) {
@@ -173,6 +182,7 @@ public class ReservationService implements InterfaceReservationService {
                                 "\nLokacija: " + reservation.getWinery().getLocation() +
                                 "\nDatum rezervacije: " + reservation.getDate() +
                                 "\nTermin: " + reservation.getStartTime() + " - " + reservation.getEndTime() +
+                                "\nOffer: " + reservation.getOffer() +
                                 "\nBroj gostiju: " + reservation.getNumberOfGuests() +
                                 "\nUkupna cijena: " + reservation.getTotalPrice()
                 );

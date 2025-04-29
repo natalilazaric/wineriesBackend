@@ -17,6 +17,7 @@ public class ReservationDTO {
     private int numberOfGuests;
     private UserDTO user;
     private WineryDTO winery;
+    private String offer;
     private BigDecimal totalPrice;
     private String dayOfWeek;
     private String startTime;
@@ -31,6 +32,7 @@ public class ReservationDTO {
                 ", numberOfGuests=" + numberOfGuests +
                 ", user=" + user +
                 ", winery=" + winery +
+                ", offer=" + offer +
                 ", totalPrice=" + totalPrice +
                 ", dayOfWeek='" + dayOfWeek + '\'' +
                 ", startTime='" + startTime + '\'' +
@@ -117,5 +119,13 @@ public class ReservationDTO {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getOffer() {
+        return offer;
+    }
+
+    public void setOffer(String offer) {
+        this.offer = offer;
     }
 }

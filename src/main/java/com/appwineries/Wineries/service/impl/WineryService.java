@@ -62,7 +62,7 @@ public class WineryService implements InterfaceWineryService {
         return offersMap;
     }
     @Override
-    public Response addNewWinery(Long userId, MultipartFile photo, String name, String location, double latitude, double longitude, BigDecimal price, boolean food, String description, List<String> wines, Map<String, String> extras, Map<String, String> offers) {
+    public Response addNewWinery(Long userId, MultipartFile photo, String name, String location, double latitude, double longitude, boolean food, String description, List<String> wines, Map<String, String> extras, Map<String, String> offers) {
         Response response = new Response();
         try{
             User owner = userRepository.findById(userId).orElseThrow(()-> new OurException("User not found"));
@@ -89,7 +89,6 @@ public class WineryService implements InterfaceWineryService {
             winery.setLatitude(latitude);
             winery.setLongitude(longitude);
             winery.setWines(wineryWines);
-            winery.setPrice(price);
             winery.setExtras(extras);
             winery.setOffers(offers);
 
@@ -182,7 +181,6 @@ public class WineryService implements InterfaceWineryService {
             winery.setName(wineryDTO.getName());
             winery.setLocation(wineryDTO.getLocation());
             winery.setDescription(wineryDTO.getDescription());
-            winery.setPrice(wineryDTO.getPrice());
             winery.setFood(wineryDTO.isFood());
             winery.setLatitude(wineryDTO.getLatitude());
             winery.setLongitude(wineryDTO.getLongitude());

@@ -43,6 +43,7 @@ public class Utils {
         reservationDTO.setStartTime(reservation.getStartTime());
         reservationDTO.setEndTime(reservation.getEndTime());
         reservationDTO.setState(reservation.getState());
+        reservationDTO.setOffer(reservation.getOffer());
 
         reservationDTO.setUser(Utils.mapUserEntityToUserDTO(reservation.getUser()));
 
@@ -59,7 +60,6 @@ public class Utils {
         wineryDTO.setLocation(winery.getLocation());
         wineryDTO.setLatitude(winery.getLatitude());
         wineryDTO.setLongitude(winery.getLongitude());
-        wineryDTO.setPrice(winery.getPrice());
         wineryDTO.setFood(winery.getFood());
         wineryDTO.setPhoto(winery.getPhoto());
         wineryDTO.setDescription(winery.getDescription());
@@ -106,6 +106,7 @@ public class Utils {
         reservationDTO.setDayOfWeek(reservation.getDayOfWeek());
         reservationDTO.setStartTime(reservation.getStartTime());
         reservationDTO.setEndTime(reservation.getEndTime());
+        reservationDTO.setOffer(reservation.getOffer());
 
         if(reservationDTO.getWinery() != null){
             reservationDTO.setWinery(Utils.mapWineryEntityToWineryDTO(reservation.getWinery()));
@@ -120,7 +121,6 @@ public class Utils {
             wineryDTO.setId(reservation.getWinery().getId());
             wineryDTO.setName(reservation.getWinery().getName());
             wineryDTO.setLocation(reservation.getWinery().getLocation());
-            wineryDTO.setPrice(reservation.getWinery().getPrice());
             wineryDTO.setFood(reservation.getWinery().getFood());
             wineryDTO.setPhoto(reservation.getWinery().getPhoto());
             wineryDTO.setDescription(reservation.getWinery().getDescription());

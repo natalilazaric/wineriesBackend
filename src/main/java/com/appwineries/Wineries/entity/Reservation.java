@@ -22,6 +22,7 @@ public class Reservation {
 
     private int numberOfGuests;
     private BigDecimal totalPrice;
+    private String offer;
 
     private String dayOfWeek;
     private String startTime;
@@ -43,6 +44,7 @@ public class Reservation {
                 "id=" + id +
                 ", date='" + date + '\'' +
                 ", numberOfGuests=" + numberOfGuests +
+                ", offer=" + offer +
                 ", totalPrice=" + totalPrice +
                 ", dayOfWeek='" + dayOfWeek + '\'' +
                 ", startTime='" + startTime + '\'' +
@@ -131,5 +133,13 @@ public class Reservation {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getOffer() {
+        return offer;
+    }
+
+    public void setOffer(String offer) {
+        this.offer = offer;
     }
 }
