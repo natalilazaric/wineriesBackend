@@ -38,7 +38,7 @@ public class WineryController {
             ){
 
 
-        List<String> wines = winesString != null ? Arrays.asList(winesString.split(",")) : new ArrayList<>();
+        List<String> wines = winesString != null ? Arrays.asList(winesString.split(", ")) : new ArrayList<>();
         Map<String, String> extras = new HashMap<>();
         if (extrasJson != null && !extrasJson.isEmpty()) {
             try {
@@ -124,7 +124,7 @@ public class WineryController {
         AllWineriesDTO wineryDTO = updateWineryDTO.getWinery();
         String winesString = updateWineryDTO.getWines();
 
-        List<String> wines = winesString != null ? Arrays.asList(winesString.split(",")) : new ArrayList<>();
+        List<String> wines = winesString != null ? Arrays.asList(winesString.split(", ")) : new ArrayList<>();
         System.out.println("wines u listi su: " + wines);
 
         Response response = interfaceWineryService.updateWinery(wineryId, wineryDTO, wines);
